@@ -1,0 +1,21 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "devDependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^6.1.0"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^6.2.3"
+  }
+}
