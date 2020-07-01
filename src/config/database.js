@@ -3,7 +3,7 @@ module.exports = {
     host: '127.0.0.1',
     port: '3307',
     username: 'root',
-    password: '1234567',
+    password: '123456',
     database: 'teste_sequelize',
     define: {
         timestamps: true,
