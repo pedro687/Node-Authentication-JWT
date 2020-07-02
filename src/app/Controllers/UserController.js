@@ -22,7 +22,10 @@ class UserController {
         })   
 
         return res.status(200).json({ success: "Usuário criado com sucesso!" })
+    }
 
+    async updateUser(req, res) {
+        res.json({ message: "Boa noite" })
     }
 }
 
