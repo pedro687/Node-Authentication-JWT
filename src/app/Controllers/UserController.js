@@ -14,12 +14,6 @@ class UserController {
             return res.status(401).json({ error: "Email Já existe" })
         }
 
-        const verificationPassword = new User()
-        
-        if(!verificationPassword.checkPassword(password)) {
-            return res.status(401).json({ error: "Password dont match" })
-        }
-
         User.create({
             email,
             password,
