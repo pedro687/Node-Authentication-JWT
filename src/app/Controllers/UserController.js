@@ -25,7 +25,31 @@ class UserController {
     }
 
     async updateUser(req, res) {
-        res.json({ message: "Boa noite" })
+        const { email, oldPassword } = req.body
+
+        const user = await User.findByPk(req.userId)
+
+        if(email != user.email) {
+
+            const users = await User.findOne({ where: { email } })
+            if(users) { 
+                return res.status(401).json({ error: "Email Já existe" })
+            }
+        }
+
+       if(oldPassword && !(await user.checkPassword(oldPassword))) {
+            return res.status(401).json({ error: "Senha Incorreta" })
+       }
+
+       const { id, name, provider } = await user.update(req.body)
+
+       return res.status(200).json({
+           id,
+           email,
+           provider,
+           name
+       })
+
     }
 }
 
