@@ -1,7 +1,18 @@
 const User = require('../Models/User')
+const Yup = require('yup')
+
 
 class UserController {
     async store(req, res) {
+        const Schema = Yup.object().shape({
+            name: Yup.string().required(),
+            email: Yup.string().email().required(),
+            password: Yup.string().required().min(6)
+        })
+
+        if(!(await Schema.isValid(req.body))){
+            return res.status(401).json({ error: `Falha na validação` })
+        }
         const { email, password, name, provider } = req.body
 
         if(!email || !password) {
@@ -25,6 +36,20 @@ class UserController {
     }
 
     async updateUser(req, res) {
+        const Schema = Yup.object().shape({
+            name: Yup.string(),
+            email: Yup.string(),
+            oldPassword: Yup.string().min(6),
+            password: Yup.string().min(6)
+              .when('oldPassword', (oldPassword, field) =>
+                  oldPassword ? field.required() : field 
+              )
+        })
+
+        if(!(await Schema.isValid(req.body))) {
+            return res.status(401).json({ error: `Falha na validação` })
+        }
+
         const { email, oldPassword } = req.body
 
         const user = await User.findByPk(req.userId)
